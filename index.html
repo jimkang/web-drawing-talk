@@ -292,86 +292,6 @@
           click, find out what color was at the pixel that was clicked.
         </li>
       </ul>
-      <canvas
-        id="canvas-example"
-        width="500"
-        height="500"
-        style="width: 500px; height: 500px"
-      >
-      </canvas>
-      (Right-click and inspect to see the code for this animation.)
-
-      <script>
-        (function exampleScope() {
-          var laststamp;
-          var elapsed = 0;
-          // Equilateral triangle.
-          var vertices = [
-            [100, 100],
-            [400, 100],
-            [250, 100 + 300 * Math.sin((2 * Math.PI) / 6)]
-          ];
-          var ctx = document.getElementById("canvas-example").getContext("2d");
-          ctx.strokeStyle = "#0a4";
-
-          window.requestAnimationFrame(drawExample);
-
-          function drawExample(timestamp) {
-            if (!isNaN(laststamp)) {
-              elapsed += timestamp - laststamp;
-            }
-            laststamp = timestamp;
-
-            const ctrlPtClosenessToDest = (elapsed % 3000) / 3000;
-            ctx.clearRect(0, 0, 500, 500);
-
-            var fromFirstToSecondVector = [
-              vertices[1][0] - vertices[0][0],
-              vertices[0][0] - vertices[0][1]
-            ];
-            var halfFirstToSecondVector = fromFirstToSecondVector.map(
-              x => x / 2
-            );
-            var perpendicularVector = [
-              halfFirstToSecondVector[1],
-              -halfFirstToSecondVector[0]
-            ];
-            perpendicularVector = perpendicularVector.map(
-              n => n * ctrlPtClosenessToDest
-            );
-
-            var oppositePerpendicularVector = [
-              -perpendicularVector[0],
-              -perpendicularVector[1]
-            ];
-            var startCtrlPt = [
-              halfFirstToSecondVector[0] + perpendicularVector[0],
-              halfFirstToSecondVector[1] + perpendicularVector[1]
-            ];
-            var endCtrlPt = [
-              halfFirstToSecondVector[0] + oppositePerpendicularVector[0],
-              halfFirstToSecondVector[1] + oppositePerpendicularVector[1]
-            ];
-
-            ctx.beginPath();
-            ctx.moveTo.apply(ctx, vertices[0]);
-            ctx.bezierCurveTo(
-              startCtrlPt[0],
-              startCtrlPt[1],
-              endCtrlPt[0],
-              endCtrlPt[1],
-              vertices[1][0],
-              vertices[1][1]
-            );
-
-            ctx.lineTo.apply(ctx, vertices[2]);
-            ctx.lineTo.apply(ctx, vertices[0]);
-            ctx.stroke();
-
-            window.requestAnimationFrame(drawExample);
-          }
-        })();
-      </script>
     </section>
 
     <section class="step">
@@ -384,6 +304,93 @@
             <li>
               Drawing something slightly different each frame. How different?
               Usually depends on how much time has passed.
+            </li>
+            <li>
+              <canvas
+                id="canvas-example"
+                width="500"
+                height="500"
+                style="width: 500px; height: 500px"
+              >
+              </canvas>
+              <br>
+              (Right-click and inspect to see the code for this animation.)
+
+              <script>
+                (function exampleScope() {
+                  var laststamp;
+                  var elapsed = 0;
+                  // Equilateral triangle.
+                  var vertices = [
+                    [100, 100],
+                    [400, 100],
+                    [250, 100 + 300 * Math.sin((2 * Math.PI) / 6)]
+                  ];
+                  var ctx = document
+                    .getElementById("canvas-example")
+                    .getContext("2d");
+                  ctx.strokeStyle = "#0a4";
+
+                  window.requestAnimationFrame(drawExample);
+
+                  function drawExample(timestamp) {
+                    if (!isNaN(laststamp)) {
+                      elapsed += timestamp - laststamp;
+                    }
+                    laststamp = timestamp;
+
+                    const ctrlPtClosenessToDest = (elapsed % 3000) / 3000;
+                    ctx.clearRect(0, 0, 500, 500);
+
+                    var fromFirstToSecondVector = [
+                      vertices[1][0] - vertices[0][0],
+                      vertices[0][0] - vertices[0][1]
+                    ];
+                    var halfFirstToSecondVector = fromFirstToSecondVector.map(
+                      x => x / 2
+                    );
+                    var perpendicularVector = [
+                      halfFirstToSecondVector[1],
+                      -halfFirstToSecondVector[0]
+                    ];
+                    perpendicularVector = perpendicularVector.map(
+                      n => n * ctrlPtClosenessToDest
+                    );
+
+                    var oppositePerpendicularVector = [
+                      -perpendicularVector[0],
+                      -perpendicularVector[1]
+                    ];
+                    var startCtrlPt = [
+                      halfFirstToSecondVector[0] + perpendicularVector[0],
+                      halfFirstToSecondVector[1] + perpendicularVector[1]
+                    ];
+                    var endCtrlPt = [
+                      halfFirstToSecondVector[0] +
+                        oppositePerpendicularVector[0],
+                      halfFirstToSecondVector[1] +
+                        oppositePerpendicularVector[1]
+                    ];
+
+                    ctx.beginPath();
+                    ctx.moveTo.apply(ctx, vertices[0]);
+                    ctx.bezierCurveTo(
+                      startCtrlPt[0],
+                      startCtrlPt[1],
+                      endCtrlPt[0],
+                      endCtrlPt[1],
+                      vertices[1][0],
+                      vertices[1][1]
+                    );
+
+                    ctx.lineTo.apply(ctx, vertices[2]);
+                    ctx.lineTo.apply(ctx, vertices[0]);
+                    ctx.stroke();
+
+                    window.requestAnimationFrame(drawExample);
+                  }
+                })();
+              </script>
             </li>
           </ul>
         </li>
