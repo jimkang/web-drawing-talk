@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <title>Web drawing talk</title>
+    <link rel="stylesheet" href="app.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <pre id="status-message" class="hidden"></pre>
+
+    <section class="step" id="why-step">
+      <h2>Why draw on the web?</h2>
+      <ul class="notes">
+        <li>Express things you can't express with words.</li>
+        <li>Create things dynamically that don't exist (unlike pre-existing images)</li>
+        <li>Make it available to anyone with a computer, regardless of OS or device*</li>
+      </ul>
+    </section>
+
+    <section class="step" id="where-step">
+      <h2>Where do I draw?</h2>
+      <ul>
+        <li>SVG</li>
+        <li>Canvas</li>
+        <li>The "normal" DOM!</li>
+      </ul>
+    </section>
+
+     <section class="step">
+      <h2>SVG</h2>
+      <ul>
+        <li>Vector graphics</li>
+        <li>Declarative, retained mode</li>
+        <li>Takes up memory because of DOM records</li>
+        <li>After a certain number of nodes, <a href="https://jimkang.com/weblog/articles/weird-but-worth-it/">browsers struggle</a>. (Exact amount will depend on the future power of computers and browsers).
+        <li>Highly inspectable and debuggable, however.</li>
+        <li>Free zoom</li>
+        <li>Free interactive model (click events)</li>
+        <li>Good text rendering</li>
+      </ul>
+    </section>
+
+    <section class="step">
+      <h2>Drawing a line in SVG</h2>
+      <svg width="250" height="250" viewBox="0 0 100 100">
+        <line x1="10" y1="90" x2="90" y2="10" stroke="#0ac"></line>
+      </svg>
+      <ul class="notes">
+        <li>Right-click and inspect to see what's involved.</li>
+        <li>SVG +y is down, following UI conventions, rather than math conventions.</li>
+        <li>stroke DOM attribute (or CSS attribute) determines color.</li>
+      <ul>
+    </section>
+
+    <section class="step">
+      <h2>Drawing a circle in SVG</h2>
+
+      <svg width="250" height="250" viewBox="0 0 100 100">
+        <g class="graph-vertex"><circle cx="50" cy="50" r="20"></circle></g>
+      </svg>
+      <ul>
+        <li>You can change the fill in CSS. Try it out.</li>
+      </ul>
+    </section>
+
+    <section class="step">
+      <h2>Drawing a rectangle in SVG</h2>
+
+      <svg width="250" height="250" viewBox="0 0 100 100">
+        <rect x="25" y="25" width="50" height="50" fill="#65a"></rect>
+      </svg>
+      <ul>
+        <li>viewBox lets you not think about how big the svg element actually is.</li>
+      <ul>
+    </section>
+
+    <section class="step">
+      <h2>What about arbitrary shapes?</h2>
+
+      <p>That's what paths are for.</p>
+
+      <ul class="notes">
+        <li>path element `d` attributes have their own small DSL. Ugly that so many instructions are crammed into a single attribute.</li>
+        <li>Draw lines to points, make arcs, make bezier curves, a bunch of other stuff.</li>
+        <li>Bezier curve example: Move cursor to 35, 11, then make several Bezier curves. Each curve has three x-y points: the start control point, the end control point, and end point.</li>
+        <li>(Also, the viewBox on this one is made to accommodate negative cooredinates. Check it out.)</li>
+      </ul>
+
+      <svg width="250" height="250" viewBox="-25 -30 100 100">
+      <path
+        d="M35,11
+        C32,-1, 35,-15, 28,-22
+        C21,-29, 4,-28, -7,-19
+        C-18,-9, -23,8, -16,26
+        C-8,44, 12,62, 27,65
+        C42,68, 51,56, 50,45
+        C49,34, 39,23, 35,11"
+        fill="#ec7"
+      ></path>
+      </svg>
+    </section>
+
+    <section class="step">
+      <h2>Bezier curves</h2>
+
+      <p>Bezier curves let you form a lot of aesthetically satisfying lines. They're a core component of Adobe Illustrator and other drawing programs.</p>
+      <ul class="notes">
+        <li>Really in-depth explanation here: <a href="https://pomax.github.io/bezierinfo/">https://pomax.github.io/bezierinfo/</a></li>
+        <li>tl;dr It's a way of interpolating between the control points.</li>
+        <li>Bezier curves are splines.</li>
+        <li>In basic cubic Bezier curve, there's two control points, one that corresponds with the start of the curve and one that corresponds with the end. <a href="https://jimkang.com/hills/#levelSpecs=%23267129%3B0%2C25%3B27%2C9%3B53%2C24%3B78%2C39%3B100%2C12">Hills example</a>. <a href="https://jimkang.com/hills/#levelSpecs=%23267129%3B0%2C25%3B27%2C9%3B53%2C24%3B78%2C39%3B100%2C12&debug=yes">With visible control points.</a> <a href="https://jimkang.com/hills/#debug=yes&extraCtrlPtSeparation=yes&levelSpecs=%23267129%3B0%2C25%3B27%2C9%3B53%2C24%3B78%2C39%3B100%2C12">With extra control point separation.</a> 
+      </ul>
+    </section>
+
+    <script src="index.js"></script>
+  </body>
+</html>
