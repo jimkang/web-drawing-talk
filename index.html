@@ -263,7 +263,10 @@
           There's a canvas analogue to almost every primitive available for SVG.
           `bezierCurveTo`, `drawRect`, etc.
         </li>
-        <li>Get a context, which is your JS interface to a canvas element's contents.</li>
+        <li>
+          Get a context, which is your JS interface to a canvas element's
+          contents.
+        </li>
         <li>
           Hook into `requestAnimationFrame` or something that uses it to know
           when to draw. Without that, you can tie up the event loop.
@@ -326,17 +329,68 @@
     <section class="step">
       <h2>Transforms</h2>
       <ul>
-        <li>Transforms are math done to one or more points. In SVG, they usually apply to an element hierarchy. In canvas, they usually apply to a context and affect everything drawn to that context.</li>
-        <li>There are <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setTransform#Syntax">generic matrix APIs</a> that multiply every point in the target by a 3x3 matrix.</li>
-        <li>There are common transforms, like rotating, scaling, and translating. These are sort of like the circle, rect, and line of transforms. The browser provides specific methods for these even though you can just do it with the generic transform APIs.</li>
-        <li style="transform: rotate(-10deg)">CSS also has transforms, which can apply to normal HTML elements as well as SVG.</li>
-        <li>Rotating an image involves a surprising amount of work. If you just rotate it, it will rotate around the top left corner.</li>
+        <li>
+          Transforms are math done to one or more points. In SVG, they usually
+          apply to an element hierarchy. In canvas, they usually apply to a
+          context and affect everything drawn to that context.
+        </li>
+        <li>
+          There are
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setTransform#Syntax"
+            >generic matrix APIs</a
+          >
+          that multiply every point in the target by a 3x3 matrix.
+        </li>
+        <li>
+          <img src="media/transform-matrix.jpg" alt="The transform matrix" />
+        </li>
+        <li>
+          There are common transforms, like rotating, scaling, and translating.
+          These are sort of like the circle, rect, and line of transforms. The
+          browser provides specific methods for these even though you can just
+          do it with the generic transform APIs.
+        </li>
+        <li style="transform: rotate(-10deg)">
+          CSS also has transforms, which can apply to normal HTML elements as
+          well as SVG.
+        </li>
+        <li>
+          Rotating an image involves a surprising amount of work. If you just
+          rotate it, it will rotate around the top left corner.
+        </li>
       </ul>
     </section>
 
     <section class="step">
       <h2>One weird old trick</h2>
-      <p></p>
+      <p>
+        This app, Spinners, is made to spin various images in various
+        formations.
+      </p>
+      <ul>
+        <li>
+          Started out with
+          <a
+            href="https://jimkang.com/spinners-svg-rotation/#seed=2019-07-26T13%3A42%3A40.707Z"
+            >all SVG animation</a
+          >, but started to lock up on Safari.
+          <em>animateTransform does not respect the event loop.</em>
+        </li>
+        <li>
+          <a
+            href="https://jimkang.com/spinners-canvas/#seed=2019-07-26T13%3A42%3A40.707Z"
+            >Rewrote for canvas</a
+          >, but things got choppy on iOS (but at least responded).
+        </li>
+        <li>
+          <a
+            href="https://jimkang.com/spinners/#seed=2019-07-26T13%3A42%3A40.707Z"
+            >SVG with CSS rotation animation and frame-based positioning</a
+          >
+          looks OK on Mobile Safari. CSS!
+        </li>
+      </ul>
     </section>
 
     <script src="index.js"></script>
