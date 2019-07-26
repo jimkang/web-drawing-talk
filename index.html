@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Web drawing talk</title>
+    <link rel="stylesheet" href="https://use.typekit.net/tun4tmf.css" />
     <link rel="stylesheet" href="app.css" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,8 +13,14 @@
       <h2>Why draw on the web?</h2>
       <ul class="notes">
         <li>Express things you can't express with words.</li>
-        <li>Create things dynamically that don't exist (unlike pre-existing images)</li>
-        <li>Make it available to anyone with a computer, regardless of OS or device*</li>
+        <li>
+          Create things dynamically that don't exist (unlike pre-existing
+          images)
+        </li>
+        <li>
+          Make it available to anyone with a computer, regardless of OS or
+          device*
+        </li>
       </ul>
     </section>
 
@@ -26,13 +33,19 @@
       </ul>
     </section>
 
-     <section class="step">
+    <section class="step">
       <h2>SVG</h2>
       <ul>
         <li>Vector graphics</li>
         <li>Declarative, retained mode</li>
         <li>Takes up memory because of DOM records</li>
-        <li>After a certain number of nodes, <a href="https://jimkang.com/weblog/articles/weird-but-worth-it/">browsers struggle</a>. (Exact amount will depend on the future power of computers and browsers).
+        <li>
+          After a certain number of nodes,
+          <a href="https://jimkang.com/weblog/articles/weird-but-worth-it/"
+            >browsers struggle</a
+          >. (Exact amount will depend on the future power of computers and
+          browsers).
+        </li>
         <li>Highly inspectable and debuggable, however.</li>
         <li>Free zoom</li>
         <li>Free interactive model (click events)</li>
@@ -47,9 +60,12 @@
       </svg>
       <ul class="notes">
         <li>Right-click and inspect to see what's involved.</li>
-        <li>SVG +y is down, following UI conventions, rather than math conventions.</li>
+        <li>
+          SVG +y is down, following UI conventions, rather than math
+          conventions.
+        </li>
         <li>stroke DOM attribute (or CSS attribute) determines color.</li>
-      <ul>
+      </ul>
     </section>
 
     <section class="step">
@@ -70,8 +86,10 @@
         <rect x="25" y="25" width="50" height="50" fill="#65a"></rect>
       </svg>
       <ul>
-        <li>viewBox lets you not think about how big the svg element actually is.</li>
-      <ul>
+        <li>
+          viewBox lets you not think about how big the svg element actually is.
+        </li>
+      </ul>
     </section>
 
     <section class="step">
@@ -80,36 +98,245 @@
       <p>That's what paths are for.</p>
 
       <ul class="notes">
-        <li>path element `d` attributes have their own small DSL. Ugly that so many instructions are crammed into a single attribute.</li>
-        <li>Draw lines to points, make arcs, make bezier curves, a bunch of other stuff.</li>
-        <li>Bezier curve example: Move cursor to 35, 11, then make several Bezier curves. Each curve has three x-y points: the start control point, the end control point, and end point.</li>
-        <li>(Also, the viewBox on this one is made to accommodate negative cooredinates. Check it out.)</li>
+        <li>
+          path element `d` attributes have their own small DSL. Ugly that so
+          many instructions are crammed into a single attribute.
+        </li>
+        <li>
+          Draw lines to points, make arcs, make bezier curves, a bunch of other
+          stuff.
+        </li>
+        <li>
+          Bezier curve example: Move cursor to 35, 11, then make several Bezier
+          curves. Each curve has three x-y points: the start control point, the
+          end control point, and end point.
+        </li>
+        <li>
+          (Also, the viewBox on this one is made to accommodate negative
+          cooredinates. Check it out.)
+        </li>
       </ul>
 
       <svg width="250" height="250" viewBox="-25 -30 100 100">
-      <path
-        d="M35,11
+        <path
+          d="M35,11
         C32,-1, 35,-15, 28,-22
         C21,-29, 4,-28, -7,-19
         C-18,-9, -23,8, -16,26
         C-8,44, 12,62, 27,65
         C42,68, 51,56, 50,45
         C49,34, 39,23, 35,11"
-        fill="#ec7"
-      ></path>
+          fill="#ec7"
+        ></path>
       </svg>
     </section>
 
     <section class="step">
       <h2>Bezier curves</h2>
 
-      <p>Bezier curves let you form a lot of aesthetically satisfying lines. They're a core component of Adobe Illustrator and other drawing programs.</p>
+      <p>
+        Bezier curves let you form a lot of aesthetically satisfying lines.
+        They're a core component of Adobe Illustrator and other drawing
+        programs.
+      </p>
       <ul class="notes">
-        <li>Really in-depth explanation here: <a href="https://pomax.github.io/bezierinfo/">https://pomax.github.io/bezierinfo/</a></li>
+        <li>
+          Really in-depth explanation here:
+          <a href="https://pomax.github.io/bezierinfo/"
+            >https://pomax.github.io/bezierinfo/</a
+          >
+        </li>
         <li>tl;dr It's a way of interpolating between the control points.</li>
         <li>Bezier curves are splines.</li>
-        <li>In basic cubic Bezier curve, there's two control points, one that corresponds with the start of the curve and one that corresponds with the end. <a href="https://jimkang.com/hills/#levelSpecs=%23267129%3B0%2C25%3B27%2C9%3B53%2C24%3B78%2C39%3B100%2C12">Hills example</a>. <a href="https://jimkang.com/hills/#levelSpecs=%23267129%3B0%2C25%3B27%2C9%3B53%2C24%3B78%2C39%3B100%2C12&debug=yes">With visible control points.</a> <a href="https://jimkang.com/hills/#debug=yes&extraCtrlPtSeparation=yes&levelSpecs=%23267129%3B0%2C25%3B27%2C9%3B53%2C24%3B78%2C39%3B100%2C12">With extra control point separation.</a> 
+        <li>
+          In a basic cubic Bezier curve, there's two control points, one that
+          corresponds with the start of the curve and one that corresponds with
+          the end.
+          <a
+            href="https://jimkang.com/hills/#levelSpecs=%23267129%3B0%2C25%3B27%2C9%3B53%2C24%3B78%2C39%3B100%2C12"
+            >Hills example</a
+          >.
+          <a
+            href="https://jimkang.com/hills/#levelSpecs=%23267129%3B0%2C25%3B27%2C9%3B53%2C24%3B78%2C39%3B100%2C12&debug=yes"
+            >With visible control points.</a
+          >
+          <a
+            href="https://jimkang.com/hills/#debug=yes&extraCtrlPtSeparation=yes&levelSpecs=%23267129%3B0%2C25%3B27%2C9%3B53%2C24%3B78%2C39%3B100%2C12"
+            >With extra control point separation.</a
+          >
+        </li>
       </ul>
+    </section>
+
+    <section class="step">
+      <h2>Paths are flexible.</h2>
+      <p>
+        If you want to draw an unnameable shape, then paths are the way to go.
+        In fact, if you want to draw something that <em>almost</em> looks like a
+        nameable shape but has some irregularity or distoration, paths are the
+        way to go. e.g:
+      </p>
+      <ul>
+        <li>
+          <a
+            href="https://jimkang.com/spinners/#seed=2019-07-26T03%3A37%3A43.634Z"
+            >The wobbly rings here</a
+          >
+          are almost circles. They are created by:
+          <ol>
+            <li>
+              <a
+                href="https://github.com/jimkang/spinners/blob/master/dom/animate-halos.js#L46"
+                >Decomposing a circle into arcs.</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://github.com/jimkang/spinners/blob/a0caff648b4184967bfe37a2585ce4283a43b212/dom/wobble-circle.js#L1"
+                >Deforming each arc a little</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://github.com/jimkang/spinners/blob/master/dom/circle-to-path.js#L64"
+                >Recomposing the deformed arcs into bezier curves.</a
+              >
+              A series of bezier curves can look wavier than a series of
+              deformed arcs:
+              <ul>
+                <li>
+                  Arcs:<br />
+                  <img src="media/ring-with-arcs.png" />
+                </li>
+                <li>
+                  Curves:<br />
+                  <img src="media/ring-with-curves.png" />
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+
+        <li>
+          <a href="https://jimkang.com/council/">The torn "paper" edges</a> are
+          SVG paths, with the y of each point picked randomly.
+        </li>
+
+        <li>
+          <a href="https://jimkang.com/7drl-2018/">The warped grid here</a> is
+          <a
+            href="https://github.com/jimkang/7drl-2018/blob/gh-pages/renderers/render-grid.js#L12"
+            >drawn via bezier curves</a
+          >
+          that come from warped guide points (in this case, a formerly standard
+          grid) as well. It's also on canvas, rather than SVG.
+        </li>
+      </ul>
+    </section>
+
+    <section class="step">
+      <h2>Canvas</h2>
+      <ul>
+        <li>Raster graphics (pixels in a grid)</li>
+        <li>Immediate mode, imperative</li>
+        <li>
+          Does not take up as much memory as SVG. Right now, if you get to
+          around 10,000 elements, the browser's not going to handle it well. No
+          problem drawing that many things in Canvas.
+        </li>
+        <li>
+          You pretty much have to draw the entire thing every frame in most
+          situations
+        </li>
+        <li>
+          Can't inspect stuff; after you've called a method, all that's left are
+          pixels
+        </li>
+        <li>Blurry text rendering. (May be better now?)</li>
+      </ul>
+    </section>
+
+    <section class="step">
+      <h2>What you need to do to draw on canvas</h2>
+      <ul>
+        <li>
+          There's a canvas analogue to almost every primitive available for SVG.
+          `bezierCurveTo`, `drawRect`, etc.
+        </li>
+        <li>Get a context, which is your JS interface to a canvas element's contents.</li>
+        <li>
+          Hook into `requestAnimationFrame` or something that uses it to know
+          when to draw. Without that, you can tie up the event loop.
+        </li>
+        <li>Keep track of how much time has passed since the last draw.</li>
+        <li>Apply your own transforms to each thing you draw.</li>
+        <li>
+          Figure out an "object" on the canvas was clicked or not. One way: Have
+          an invisible canvas with a different color for each object. On a
+          click, find out what color was at the pixel that was clicked.
+        </li>
+      </ul>
+    </section>
+
+    <section class="step">
+      <h2>Animating</h2>
+      <p>Animating is just drawing something different over time!</p>
+      <ul>
+        <li>
+          On Canvas, you can animate by:
+          <ul>
+            <li>
+              Drawing something slightly different each frame. How different?
+              Usually depends on how much time has passed.
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          On SVG, you can animate by:
+          <ul>
+            <li>
+              Changing the attributes of an element every frame, similar to
+              canvas animation.
+            </li>
+            <li>
+              Adding child elements like
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate"
+                >animate</a
+              >
+              and
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion"
+                >animateMotion</a
+              >
+              to an element.
+            </li>
+            <li>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation"
+                >The CSS animate property.</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section class="step">
+      <h2>Transforms</h2>
+      <ul>
+        <li>Transforms are math done to one or more points. In SVG, they usually apply to an element hierarchy. In canvas, they usually apply to a context and affect everything drawn to that context.</li>
+        <li>There are <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setTransform#Syntax">generic matrix APIs</a> that multiply every point in the target by a 3x3 matrix.</li>
+        <li>There are common transforms, like rotating, scaling, and translating. These are sort of like the circle, rect, and line of transforms. The browser provides specific methods for these even though you can just do it with the generic transform APIs.</li>
+        <li style="transform: rotate(-10deg)">CSS also has transforms, which can apply to normal HTML elements as well as SVG.</li>
+        <li>Rotating an image involves a surprising amount of work. If you just rotate it, it will rotate around the top left corner.</li>
+      </ul>
+    </section>
+
+    <section class="step">
+      <h2>One weird old trick</h2>
+      <p></p>
     </section>
 
     <script src="index.js"></script>
